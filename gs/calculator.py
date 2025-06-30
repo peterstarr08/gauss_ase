@@ -34,5 +34,7 @@ def start(
         atoms.info['energy_gauss'] = energy
         atoms.arrays['forces_gauss'] = forces
 
+        atoms.calc = None
+
     write(out_path, configs)
     log.info("Saved all processed configs to %s", out_path)
