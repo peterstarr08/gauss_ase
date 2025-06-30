@@ -20,12 +20,10 @@ def start(
     log.info("Reading configs from %s", configs_path)
     configs = read(configs_path, index=":")
 
-    processed_configs = []
-
     for i, atoms in enumerate(configs):
         log.info("Processing config %d/%d", i + 1, len(configs))
 
-        atoms.calc = Gaussian(method=method, basis=basis, force=True)
+        atoms.calc = Gaussian(method=method, basis=basis, extra="Force")
 
         energy = atoms.get_potential_energy()
         forces = atoms.get_forces()
@@ -33,7 +31,8 @@ def start(
         log.info("Config %d: Energy = %.6f eV", i + 1, energy)
         log.info("Config %d: Forces =\n%s", i + 1, str(forces))
 
-        processed_configs.append(atoms)
+        atoms.info['energy_gauss'] = energy
+        atoms.arrays['forces_gauss'] = forces
 
-    write(out_path, processed_configs)
+    write(out_path, configs)
     log.info("Saved all processed configs to %s", out_path)
