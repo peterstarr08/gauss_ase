@@ -1,0 +1,39 @@
+from pathlib import Path
+
+from ase.io import read, write
+from ase.calculators.gaussian import Gaussian
+
+from gs.log import get_logger
+
+log = get_logger(__name__)
+
+
+def start(
+        configs_path: str,
+        out_path: str,
+        method: str = "B3LYP",
+        basis: str = "6-31G(d)",
+):
+    configs_path = Path(configs_path)
+    out_path = Path(out_path)
+
+    log.info("Reading configs from %s", configs_path)
+    configs = read(configs_path, index=":")
+
+    processed_configs = []
+
+    for i, atoms in enumerate(configs):
+        log.info("Processing config %d/%d", i + 1, len(configs))
+
+        atoms.calc = Gaussian(method=method, basis=basis, force=True)
+
+        energy = atoms.get_potential_energy()
+        forces = atoms.get_forces()
+
+        log.info("Config %d: Energy = %.6f eV", i + 1, energy)
+        log.info("Config %d: Forces =\n%s", i + 1, str(forces))
+
+        processed_configs.append(atoms)
+
+    write(out_path, processed_configs)
+    log.info("Saved all processed configs to %s", out_path)

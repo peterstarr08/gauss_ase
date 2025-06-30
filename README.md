@@ -1,0 +1,1 @@
+This program is used to calculate GAUSSIAN SPE and forces using ASE
