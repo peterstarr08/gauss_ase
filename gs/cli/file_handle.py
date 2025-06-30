@@ -35,3 +35,6 @@ def arg_parse():
 def main():
     args = arg_parse()
     args.func(args)
+
+if __name__=='__main__':
+    main()
