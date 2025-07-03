@@ -3,17 +3,17 @@ from pathlib import Path
 from ase.io import read, write
 from ase.calculators.gaussian import Gaussian
 
-from gs.log import get_logger
+from gs.utils.log import get_std_logger
 
-log = get_logger(__name__)
+log = get_std_logger(__name__)
 
 
 from pathlib import Path
 from ase.io import read, write
 from ase.calculators.gaussian import Gaussian
-from gs.log import get_logger
+from gs.utils.log import get_std_logger
 
-log = get_logger(__name__)
+log = get_std_logger(__name__)
 
 def start(
         configs_path: str,

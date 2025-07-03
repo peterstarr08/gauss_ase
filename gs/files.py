@@ -1,8 +1,8 @@
 from pathlib import Path
 from ase.io import read, write
-from gs.log import get_logger
+from gs.utils.log import get_std_logger
 
-log = get_logger(__name__)
+log = get_std_logger(__name__)
 
 def splitter(
         file_path: str,

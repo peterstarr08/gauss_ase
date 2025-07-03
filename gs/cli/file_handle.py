@@ -1,3 +1,6 @@
+#Depracating
+
+
 import argparse
 
 from gs.files import splitter, joiner

@@ -1,7 +1,10 @@
 /dataset/
 /tmp/
+/log/
+__pycache__
 
 *.sh
 *.out
 *.err
 *.log
+*.json

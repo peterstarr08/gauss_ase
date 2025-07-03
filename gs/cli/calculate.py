@@ -1,6 +1,6 @@
 # cli/run_dft.py
 import argparse
-from gs.calculator import start
+from gs.pipeline.calculator import start
 
 def main():
     parser = argparse.ArgumentParser(description="Run DFT SPE + force calculations using Gaussian.")
