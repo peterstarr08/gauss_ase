@@ -24,6 +24,7 @@ def load_json(path):
 def get_range(path):
     data = load_json(path)
     range = [tuple(r) for r in data.pop("range", [])]
+    log.debug("range=%s from %s", str(range), str(path))
     return range
 
 
