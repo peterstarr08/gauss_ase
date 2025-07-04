@@ -1,1 +1,1 @@
-This program is used to calculate GAUSSIAN SPE and forces using ASE
+Status: Almost everything done. Will add cli info asap
