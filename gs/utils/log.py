@@ -18,6 +18,25 @@ def get_std_logger(name):
     logger.setLevel(level=logging.DEBUG)
     return logger
 
+
+# def get_json_logger(name, file):
+#     logger = logging.getLogger(name)
+#     stdout = logging.FileHandler(file)
+#     fmt = logging.Formatter(
+#     fmt=(
+#             '%(asctime)s '
+#             '[%(levelname)-8s] '
+#             '%(message)s'
+#         ),
+#         datefmt='%d-%m-%Y %I:%M:%S %p IST'
+#     )
+#     stdout.setFormatter(fmt)
+#     logger.addHandler(stdout)
+#     logger.setLevel(level=logging.INFO)
+#     return logger
+
+
+
 def intro_ascii():
     return r'''
 
@@ -31,24 +50,4 @@ def intro_ascii():
                                                                 
 
 '''
-
-# def get_json_logger(name, file):
-#     logger = logging.getLogger(name)
-#     stdout = logging.FileHandler(file)
-#     fmt = logging.Formatter(
-#     fmt=(   '{ '
-#             '"time":"%(asctime)s",'
-#             '"level":"%(levelname)-8s",'
-#             '"message":"%(message)s",'
-#             '"config": "%(config)s",'
-#             '"status": "%(status)s"'
-#             ' }'
-#         ),
-#         datefmt='%d-%m-%Y %I:%M:%S %p IST'
-#     )
-#     stdout.setFormatter(fmt)
-#     logger.addHandler(stdout)
-#     logger.setLevel(level=logging.DEBUG)
-#     return logger
-
 

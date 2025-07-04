@@ -16,7 +16,7 @@
 # Generates single configuration from all configuration inside this directory
 
 import argparse
-from gs.pipeline import preparer
+from gs.pipeline import preparer, accumulator
 
 def prepare_inter(args):
     preparer(
@@ -26,7 +26,10 @@ def prepare_inter(args):
     )
 
 def accumulate_inter(args):
-    ...
+    accumulator(
+        dir_path=args.dir,
+        out_path=args.out
+    )
 
 def arg_parse():
     parser = argparse.ArgumentParser("Prepearing for calculations and extracting single configuration file")

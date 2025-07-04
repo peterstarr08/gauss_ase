@@ -8,3 +8,8 @@ __pycache__
 *.err
 *.log
 *.json
+*.com
+*.log
+*.chk
+*.rwf
+*.skr

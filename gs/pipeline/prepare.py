@@ -15,7 +15,7 @@ def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]]):
     paths = []
     scripts = []
     for r in range:
-        path = dir_path/f'{r[0]}_{r[1]}.sh'
+        path = dir_path/f'{r[0]}_{r[1]}'
         scr =  make_calculation_script(job_name=f'G{r[0]}_{r[1]}', log_file=str(dir_path/"logs"/f'G{r[0]}_{r[1]}.log'), command=f"\n\npython -m gs.cli.calculation slurm --file {str(path)}")
         paths.append(path)
         scripts.append(scr)

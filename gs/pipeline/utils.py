@@ -6,7 +6,7 @@ log = get_std_logger(__name__)
 
 def read_atoms(path: Path):
     db = read(path, ':')
-    log.info("Read %d configs", len(db))
+    log.info("Read %d configs from %s", len(db), str(path))
     return db
 
 def write_atoms(path: Path, db: list):
