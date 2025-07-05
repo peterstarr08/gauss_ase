@@ -28,7 +28,7 @@ def make_calculation_script(
 export GAUSS_EXEDIR=/home/apps/iiser/g09/g09
 export PATH=$GAUSS_EXEDIR:$PATH
 
-export ASE_GAUSSIAN_COMMAND="g09 < {prefix}.com > {prefix}.log"
+export ASE_GAUSSIAN_COMMAND="g09 < PREFIX.com > PREFIX.log"
 
 {command}
 '''
