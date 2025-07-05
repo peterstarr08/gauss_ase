@@ -3,7 +3,9 @@ def make_calculation_script(
         out_file: str,
         err_file: str,
         command: str,
+        prefix: str,
         N:int=1,
+        mem:str ="100G",
         ntasks_per_node:int=24,
         time:str="24:00:00",
         partition:str="standard"
@@ -18,6 +20,7 @@ def make_calculation_script(
 #SBATCH --job-name={job_name}
 #SBATCH --output={out_file}
 #SBATCH --error={err_file}
+#SBATCH --mem={mem}
 #SBATCH --partition={partition}
 
 # cd $SLURM_SUBMIT_DIR
@@ -25,7 +28,7 @@ def make_calculation_script(
 export GAUSS_EXEDIR=/home/apps/iiser/g09/g09
 export PATH=$GAUSS_EXEDIR:$PATH
 
-export ASE_GAUSSIAN_COMMAND="g09 < PREFIX.com > PREFIX.log"
+export ASE_GAUSSIAN_COMMAND="g09 < {prefix}.com > {prefix}.log"
 
 {command}
 '''

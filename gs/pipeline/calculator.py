@@ -11,7 +11,8 @@ def calculate(
         config_path: Path,
         out_path: Path,
         method: str,
-        basis: str
+        basis: str,
+        mem: str = "100GB"
 ):
 
     configs = read(config_path, index=":")
@@ -24,7 +25,8 @@ def calculate(
         log.debug("Processing config %d/%d", i + 1, len(configs))
 
         try:
-            atoms.calc = Gaussian(method=method, basis=basis, extra="Force")
+            atoms.pbc = True
+            atoms.calc = Gaussian(mem=mem, method=method, basis=basis, extra="Force")
             energy = atoms.get_potential_energy()
             forces = atoms.get_forces()
 
