@@ -17,7 +17,7 @@ def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]]):
     for r in range:
         path = dir_path/f'{r[0]}_{r[1]}.sh'
         (dir_path/"logs").mkdir(parents=True, exist_ok=True)
-        scr =  make_calculation_script(job_name=f'G{r[0]}_{r[1]}', log_file=str(dir_path/"logs"/f'{r[0]}_{r[1]}.log'), command=f"\n\npython -m gs.cli.calculation slurm --dir {dir_path/f'{r[0]}_{r[1]}'}")
+        scr =  make_calculation_script(job_name=f'G{r[0]}_{r[1]}', log_file=str(dir_path/"logs"/f'{r[0]}_{r[1]}.log'), command=f"\n\ngauss-ase-calculation slurm --dir {dir_path/f'{r[0]}_{r[1]}'}")
         paths.append(path)
         scripts.append(scr)
     return paths, scripts

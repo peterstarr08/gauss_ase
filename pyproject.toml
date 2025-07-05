@@ -15,8 +15,8 @@ dependencies = [
     'importlib-metadata',
 ]
 
-[tool.setuptools.packages.find]
-where = ["gs"]
+[tool.setuptools]
+packages = ["gs"]
 
 [project.scripts]
 gauss-ase-calculation = "gs.cli.calculation:main"
