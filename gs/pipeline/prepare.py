@@ -25,7 +25,7 @@ def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]]):
             err_file=f'{r[0]}_{r[1]}.err',
             prefix=f'{r[0]}_{r[1]}',
             mem="100G",
-            command=f"\n\ngauss-ase-calculation slurm --dir {dir_path/f'{r[0]}_{r[1]}'}"
+            command=f"\n\ngauss-ase-calculation slurm --dir {dir_path/f'{r[0]}_{r[1]}'} --nproc 24 --mem 98GB"
             )
         paths.append(path)
         scripts.append(scr)
