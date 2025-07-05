@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gauss_ase"
+version = "0.0.1"
+
+authors = [
+    {name = "Rubin", email = "rubin.singh@students.iiserpune.ac.in"},
+]
+description = "To ease the calculation of GAUSS and ASE interface"
+dependencies = [
+    "requests",
+    'importlib-metadata',
+]
+
+[tool.setuptools.packages.find]
+where = ["gs"]
+
+[project.scripts]
+gauss-ase-calculation = "gs.cli.calculation:main"
+gauss-ase-file = "gs.cli.file:main"
+gauss-ase-status = "gs.cli.status:main"
