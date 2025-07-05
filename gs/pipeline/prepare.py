@@ -22,7 +22,7 @@ def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]]):
             # out_file=str("logs"/f'{r[0]}_{r[1]}.out'),
             # err_file=str("logs"/f'{r[0]}_{r[1]}.err'),
             out_file=f'{r[0]}_{r[1]}.out',
-            out_file=f'{r[0]}_{r[1]}.err',
+            err_file=f'{r[0]}_{r[1]}.err',
             prefix=f'{r[0]}_{r[1]}',
             mem="100G",
             command=f"\n\ngauss-ase-calculation slurm --dir {dir_path/f'{r[0]}_{r[1]}'}"
