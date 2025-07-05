@@ -10,8 +10,7 @@ def make_calculation_script(
     '''Creates initial setup slurm script. Exporting paths and all. Scripts are needed to be added afterwards'''
 
     return(
-        fr'''
-#!/bin/bash
+        fr'''#!/bin/bash
 #SBATCH -N {N}
 #SBATCH --ntasks-per-node={ntasks_per_node}
 #SBATCH --time={time}
