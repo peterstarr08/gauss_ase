@@ -1,6 +1,7 @@
 def make_calculation_script(
         job_name: str,
-        log_file: str,
+        out_file: str,
+        err_file: str,
         command: str,
         N:int=1,
         ntasks_per_node:int=24,
@@ -15,7 +16,8 @@ def make_calculation_script(
 #SBATCH --ntasks-per-node={ntasks_per_node}
 #SBATCH --time={time}
 #SBATCH --job-name={job_name}
-#SBATCH --output={log_file}
+#SBATCH --output={out_file}
+#SBATCH --error={err_file}
 #SBATCH --partition={partition}
 
 # cd $SLURM_SUBMIT_DIR
