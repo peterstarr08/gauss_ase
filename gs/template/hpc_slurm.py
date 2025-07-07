@@ -23,7 +23,7 @@ def make_calculation_script(
 #SBATCH --mem={mem}
 #SBATCH --partition={partition}
 
-# cd $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
 # cd "$(dirname "$0")"
 export GAUSS_EXEDIR=/home/apps/iiser/g09/g09
 export PATH=$GAUSS_EXEDIR:$PATH
