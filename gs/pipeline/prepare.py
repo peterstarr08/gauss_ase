@@ -11,7 +11,7 @@ def generate_folder_paths(dir_path: Path, range: list[tuple[int, int]]):
     paths = [dir_path/f'{r[0]}_{r[1]}' for r in range]
     return paths
 
-def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]]):
+def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]], nproc: int, mem: str):
     paths = []
     scripts = []
     for r in range:
@@ -24,8 +24,8 @@ def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]]):
             out_file=f'{r[0]}_{r[1]}.out',
             err_file=f'{r[0]}_{r[1]}.err',
             prefix=f'{r[0]}_{r[1]}',
-            mem="100G",
-            command=f"\n\ngauss-ase-calculation slurm --dir {'./'} --nproc 24 --mem 98GB"
+            mem="50G",
+            command=f"\n\ngauss-ase-calculation slurm --dir {'frames'} --nproc {nproc} --mem {mem}"
             )
         paths.append(path)
         scripts.append(scr)
@@ -34,7 +34,9 @@ def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]]):
 def entry(
         file: str,
         count: int,
-        dir: str
+        dir: str,
+        mem: str = '49GB',
+        nproc: int = 24
 ):  
     print(intro_ascii())
     log.info("Beginning system preparation")
@@ -61,14 +63,14 @@ def entry(
         log.info("Processing configuration from index %d to %d", b[0], b[1])
         for at in configs[b[0]:b[1]+1]:
             log.debug("Processing config[%d]", conf_indx)
-            write_atoms(bpth/f'frame_{conf_indx}.xyz', [at])
+            write_atoms(bpth/f'frames/frame_{conf_indx}.xyz', [at])
             conf_indx+=1
     
     # Log file
     save_json(path=dir_path/"meta.json" ,range=bins, size=len(configs))
 
     # Generating slurm scripts
-    paths, scripts = generate_path_and_scripts(dir_path=dir_path, range=bins)
+    paths, scripts = generate_path_and_scripts(dir_path=dir_path, range=bins, nproc=nproc, mem=mem)
     for p, s in zip(paths, scripts):
         with open(p, 'w') as f:
             f.write(s)
