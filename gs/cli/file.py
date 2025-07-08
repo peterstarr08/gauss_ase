@@ -40,7 +40,7 @@ def arg_parse():
     prep_parser.add_argument('--count', type=int, default=1, help="Number of splits")
     prep_parser.add_argument('--dir', type=str, required=True, help="Output directory name")
     prep_parser.add_argument('--mem', type=str, default="49GB", help="Memory to allocate")
-    prep_parser.add_arguments('--nproc', type=int, default=24, help="NProcShared count")
+    prep_parser.add_argument('--nproc', type=int, default=24, help="NProcShared count")
     prep_parser.set_defaults(func=prepare_inter)
 
     acc_parser = subparsers.add_parser('accumulate', help="Accumulating all calcaulted finished files")
