@@ -14,6 +14,7 @@ def calculate(
         basis: str,
         mem: str = "100GB",
         nprocshared: int = 24
+        extra: list[str] = ["Force", "EmpiricalDispersion=GD2"]
 ):
 
     configs = read(config_path, index=":")
@@ -27,7 +28,7 @@ def calculate(
 
         try:
             atoms.pbc = True
-            atoms.calc = Gaussian(label=f'calc/{config_path.stem}' , mem=mem, nprocshared=nprocshared, method=method, basis=basis, extra="Force,  EmpiricalDispersion=GD2")
+            atoms.calc = Gaussian(label=f'calc/{config_path.stem}' , mem=mem, nprocshared=nprocshared, method=method, basis=basis, extra=extra)
             energy = atoms.get_potential_energy()
             forces = atoms.get_forces()
 
@@ -55,7 +56,8 @@ def entry(
         method: str,
         basis: str,
         mem: str,
-        nproc: int      
+        nproc: int,
+        extra: list[str]
 ):
     dir_path = Path(dir_path).resolve(strict=True)
 
@@ -71,6 +73,6 @@ def entry(
     log.info("Processing %d frames from %s", len(frames), str(dir_path))
 
     for f in frames:
-         calculate(config_path=f, out_path=f.with_name("g"+f.name), method=method, basis=basis, mem=mem, nprocshared=nproc)
+         calculate(config_path=f, out_path=f.with_name("g"+f.name), method=method, basis=basis, mem=mem, nprocshared=nproc, extra=extra)
     
     log.info("Done !!!")

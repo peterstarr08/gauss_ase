@@ -8,6 +8,7 @@ def slurm_inter(args):
         basis=args.basis,
         mem=args.mem,
         nproc=args.nproc
+        extra=args.extra
     )
 
 def arg_parse():
@@ -20,7 +21,9 @@ def arg_parse():
     slurm_parse.add_argument("--mem", type=str, default="4GB", help="Memory allocation")
     slurm_parse.add_argument("--method",type=str, default="B3LYP", help="DFT method (default: B3LYP)")
     slurm_parse.add_argument("--basis",type=str, default="6-31G(d)", help="Basis set (default: 6-31G(d))")
+    slurm_parse.add_argument("--extra", type=str, args='+', default=["Force, EmpiricalDispersion=GD3BJ"], help="Route section. To add forces or dispersion correction")
     slurm_parse.set_defaults(func=slurm_inter)
+
 
     return parser.parse_args()
 
