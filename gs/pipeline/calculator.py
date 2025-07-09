@@ -27,7 +27,7 @@ def calculate(
 
         try:
             atoms.pbc = True
-            atoms.calc = Gaussian(label=f'calc/{config_path.stem}' ,mem=mem, nprocshared=nprocshared, method=method, basis=basis, extra="Force")
+            atoms.calc = Gaussian(label=f'calc/{config_path.stem}' , scf='EmpiricalDispersion=GD2' , mem=mem, nprocshared=nprocshared, method=method, basis=basis, extra="Force")
             energy = atoms.get_potential_energy()
             forces = atoms.get_forces()
 
