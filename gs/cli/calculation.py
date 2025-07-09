@@ -7,7 +7,7 @@ def slurm_inter(args):
         method=args.method,
         basis=args.basis,
         mem=args.mem,
-        nproc=args.nproc
+        nproc=args.nproc,
         extra=args.extra
     )
 
