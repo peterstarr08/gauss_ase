@@ -28,7 +28,8 @@ def prepare_inter(args):
 def accumulate_inter(args):
     accumulator(
         dir_path=args.dir,
-        out_path=args.out
+        out_path=args.out,
+        prefix=args.prefix
     )
 
 def arg_parse():
@@ -38,6 +39,7 @@ def arg_parse():
     prep_parser = subparsers.add_parser('prepare', help="Preparing batch for calculations")
     prep_parser.add_argument('--file', type=str, required=True, help="Path to configurations")
     prep_parser.add_argument('--count', type=int, default=1, help="Number of splits")
+    prep_parser.add_argument('--method', type=str, required=True, choices=['orca', 'gaussian'])
     prep_parser.add_argument('--dir', type=str, required=True, help="Output directory name")
     prep_parser.add_argument('--mem', type=str, default="49GB", help="Memory to allocate")
     prep_parser.add_argument('--nproc', type=int, default=24, help="NProcShared count")
@@ -45,6 +47,7 @@ def arg_parse():
 
     acc_parser = subparsers.add_parser('accumulate', help="Accumulating all calcaulted finished files")
     acc_parser.add_argument('--dir', type=str, required=True, help="Output directory path of calcaultions")
+    acc_parser.add_argument('--prefix', type=str, required=True, choices=['o', 'g'], help="Prefix for calcaulted frames. o for orca and g for gaussian")
     acc_parser.add_argument('--out', type=str, required=True, help="Path to final files")
     acc_parser.set_defaults(func=accumulate_inter)
 

@@ -11,9 +11,18 @@ def generate_folder_paths(dir_path: Path, range: list[tuple[int, int]]):
     paths = [dir_path/f'{r[0]}_{r[1]}' for r in range]
     return paths
 
-def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]], nproc: int, mem: str):
+def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]], method: str,nproc: int, mem: str):
     paths = []
     scripts = []
+    
+    log.info("Method: %s", method)
+    if method=='gaussian':
+        command=f"\n\ngauss-ase-calculation gaussian --dir {'frames'} --nproc {nproc} --mem {mem}"
+    elif method=='orca':
+        command=f'gauss-ase-calculation orca --dir {'frames'} --orca {"/home/apps/iiser/orca_5_0_4_linux_x86-64_openmpi411_part1"} --nproc {nproc}'
+    else:
+        command="# No valid method found"
+    
     for r in range:
         path = dir_path/f'{r[0]}_{r[1]}/start.sh'
         # (path.parent/"logs").mkdir(parents=True, exist_ok=True)
@@ -25,7 +34,7 @@ def generate_path_and_scripts(dir_path: Path, range: list[tuple[int, int]], npro
             err_file=f'{r[0]}_{r[1]}.err',
             prefix=f'{r[0]}_{r[1]}',
             mem="50G",
-            command=f"\n\ngauss-ase-calculation slurm --dir {'frames'} --nproc {nproc} --mem {mem}"
+            command=command
             )
         paths.append(path)
         scripts.append(scr)
@@ -35,6 +44,7 @@ def entry(
         file: str,
         count: int,
         dir: str,
+        method: str,
         mem: str = '49GB',
         nproc: int = 24
 ):  
@@ -70,7 +80,7 @@ def entry(
     save_json(path=dir_path/"meta.json" ,range=bins, size=len(configs))
 
     # Generating slurm scripts
-    paths, scripts = generate_path_and_scripts(dir_path=dir_path, range=bins, nproc=nproc, mem=mem)
+    paths, scripts = generate_path_and_scripts(dir_path=dir_path, method=method,range=bins, nproc=nproc, mem=mem)
     for p, s in zip(paths, scripts):
         with open(p, 'w') as f:
             f.write(s)
