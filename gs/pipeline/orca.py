@@ -11,8 +11,8 @@ def calculate(
         config_path: Path,
         out_path: Path,
         orcaPath: str,
-        orcaInput: str = "B3LYP D3BJ def2-TZVP",
-        orcaBlocks: str = "%pal nprocs 24 end"
+        orcaInput: str,
+        orcaNprocs: int 
 ):
     configs = read(config_path, index=":")
     log.info("Processing config %s      len=%d", str(config_path), len(configs))
@@ -29,7 +29,7 @@ def calculate(
 
             profile = OrcaProfile(command=orcaPath)
             
-            atoms.calc = ORCA(profile=profile, orcasimpleinput=orcaInput, orcablocks=orcaBlocks, directory=f'calc/{config_path.stem}')
+            atoms.calc = ORCA(profile=profile, orcasimpleinput=orcaInput, orcablocks=f'%pal nprocs {orcaNprocs} end', directory=f'calc/{config_path.stem}')
              
             energy = atoms.get_potential_energy()
             forces = atoms.get_forces()
@@ -57,8 +57,8 @@ def calculate(
 def entry(
         dir_path: str,
         orcaPath: str,
-        orcaInput: str = "B3LYP D3BJ def2-TZVP",
-        orcaBlocks: str = "%pal nprocs 24 end"
+        orcaInput: str = "B3LYP D3BJ def2-TZVP TightSCF EnGrad",
+        orcaNprocs: int = 24
 ):
     dir_path = Path(dir_path).resolve(strict=True)
 
@@ -74,7 +74,7 @@ def entry(
     log.info("Processing %d frames from %s", len(frames), str(dir_path))
 
     for f in frames:
-         calculate(config_path=f, out_path=f.with_name("o"+f.name), orcaPath=orcaPath, orcaInput=orcaInput, orcaBlocks=orcaBlocks)
+         calculate(config_path=f, out_path=f.with_name("o"+f.name), orcaPath=orcaPath, orcaInput=orcaInput, orcaNprocs=orcaNprocs)
     
     log.info("Done !!!")
 

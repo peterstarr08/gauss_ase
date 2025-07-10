@@ -15,7 +15,8 @@ def gaussian_inter(args):
 def orca_inter(args):
     orca_calculator(
         dir_path=args.dir,
-        orcaPath=args.orca
+        orcaPath=args.orca,
+        orcaNprocs=args.nproc
     )
 
 def arg_parse():
@@ -35,6 +36,7 @@ def arg_parse():
     orca_parse = subparsers.add_parser('orca', help="To begin calcaultion using Orca")
     orca_parse.add_argument("--dir", type=str, required=True, help="Path to directory")
     orca_parse.add_argument("--orca", type=str, required=True, help="Path to orca directory")
+    orca_parse.add_argument("--nproc", type=int, default=24, help="Nprocs")
     orca_parse.set_defaults(func=orca_inter)
     return parser.parse_args()
 
