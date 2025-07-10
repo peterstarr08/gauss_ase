@@ -15,7 +15,7 @@ class FileHandler():
         indx = int(path.stem.split('_')[1])
         return Config(name=path.stem, path=path, index=indx)
 
-    def __init__(self, meta_path: str):
+    def __init__(self, meta_path: str, prefix: str):
         meta_path = Path(meta_path).resolve(strict=True)
         self.output_dir = meta_path.parent
         self.range = get_range(meta_path)
@@ -36,7 +36,7 @@ class FileHandler():
             _all_frame = list(_dir_path.glob('*.xyz'))
             log.debug("Globbed %d frames", len(_all_frame))
             
-            _labeled_frames = [FileHandler.generate_config(f) for f in _all_frame if f.name.startswith("gframe_")]
+            _labeled_frames = [FileHandler.generate_config(f) for f in _all_frame if f.name.startswith(f"{prefix}frame_")]
             _unlabled_frames = [FileHandler.generate_config(f) for f in _all_frame if f.name.startswith("frame_")]
 
             _len_lab = len(_labeled_frames)
@@ -92,7 +92,7 @@ class FileHandler():
             cfg_str = "\n".join(cfg)
             gcfg_str = "\n".join(gcfg)
 
-            btch_str = f'Batch range={batch.rng} len={batch.length} status={batch.health.name}' + "\n\tconfigs:\n" + cfg_str + "\n\tgconfigs:\n" + gcfg_str
+            btch_str = f'Batch range={batch.rng} len={batch.length} status={batch.health.name}' + "\n\tconfigs:\n" + cfg_str + "\n\tlabelled configs:\n" + gcfg_str
 
             batches.append(btch_str)
         

@@ -7,7 +7,8 @@ log = get_std_logger(__name__)
 
 def entry(
         dir_path: str,
-        out_path: str
+        out_path: str,
+        prefix: str
 ):
     dir_path = Path(dir_path).resolve(strict=True)
     out_path = Path(out_path)
@@ -15,7 +16,7 @@ def entry(
 
     print(intro_ascii())
 
-    gframes = sorted(dir_path.rglob("gframe_*.xyz"), key=lambda f: int(re.search(r'\d+', f.name).group()))
+    gframes = sorted(dir_path.rglob(f"{prefix}frame_*.xyz"), key=lambda f: int(re.search(r'\d+', f.name).group()))
     log.info("Found %d gaussian calculated frames", len(gframes))
 
     db = []
